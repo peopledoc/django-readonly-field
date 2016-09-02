@@ -16,3 +16,15 @@ class Car(models.Model):
 
     class ReadOnlyMeta:
         read_only = ["manufacturer"]
+
+
+@python_2_unicode_compatible
+class Book(models.Model):
+
+    ref = models.IntegerField()
+    iban = models.CharField(max_length=100)
+    name = models.CharField(max_length=250)
+
+    class ReadOnlyMeta:
+        read_only = ["ref", "iban"]
+
