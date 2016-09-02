@@ -12,8 +12,8 @@ class ReadOnlySQLCompilerMixin(object):
         except AttributeError:
             pass
         else:
-            read_only_field_names = set(getattr(
-                read_only_meta, "read_only", set()))
+            read_only_field_names = frozenset(getattr(
+                read_only_meta, "read_only", ()))
             self.remove_read_only_fields(read_only_field_names)
         return super(ReadOnlySQLCompilerMixin, self).as_sql()
 
