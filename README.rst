@@ -53,7 +53,8 @@ In the model where you want some fields to be read-only:
         class ReadOnlyMeta:
             readonly = ["color"]
 
-That's it. Now, Django won't try to write these fields on the database.
+That's it. Now, Django won't try to write the ``color`` field on the database.
+
 
 Warning
 -------
@@ -84,7 +85,8 @@ Run tests for a specific version
 
     (myenv) $ python runtests.py
 
-Run tests for all versions (it tox is installed globally, you don't need a
+
+Run tests for all versions (if tox is installed globally, you don't need a
 virtual environment)
 
 ::
