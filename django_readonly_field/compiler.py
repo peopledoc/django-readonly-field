@@ -3,17 +3,23 @@ from django.db.models.sql.compiler import SQLInsertCompiler as BaseSQLInsertComp
 from django.db.models.sql.compiler import SQLDeleteCompiler
 from django.db.models.sql.compiler import SQLUpdateCompiler as BaseSQLUpdateCompiler
 from django.db.models.sql.compiler import SQLAggregateCompiler
+from django.utils.functional import cached_property
 
 
 class ReadOnlySQLCompilerMixin(object):
-    def as_sql(self):
+    
+    @cached_property
+    def read_only_field_names(self):
         try:
             read_only_meta = getattr(self.query.model, "ReadOnlyMeta")
         except AttributeError:
-            pass
+            return ()
         else:
-            read_only_field_names = frozenset(getattr(
-                read_only_meta, "read_only", ()))
+            return frozenset(getattr(read_only_meta, "read_only", ()))
+
+    def as_sql(self):
+        read_only_field_names = self.read_only_field_names
+        if read_only_field_names:
             self.remove_read_only_fields(read_only_field_names)
         return super(ReadOnlySQLCompilerMixin, self).as_sql()
 
