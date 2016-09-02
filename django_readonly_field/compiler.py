@@ -21,9 +21,15 @@ class ReadOnlySQLCompilerMixin(object):
 class SQLUpdateCompiler(ReadOnlySQLCompilerMixin, BaseSQLUpdateCompiler):
 
     def remove_read_only_fields(self, read_only_field_names):
-        for i, (field, __, __) in list(enumerate(self.query.values))[::-1]:
-            if field.name in read_only_field_names:
-                del self.query.values[i]
+       """
+        Remove the values from the query which correspond to a
+        readonly field
+        """
+        values = self.query.values
+        values[:] = (
+            (field, _, __) for (field, _, __) in values
+            if field.name not in read_only_field_names
+        )
 
 
 class SQLInsertCompiler(ReadOnlySQLCompilerMixin, BaseSQLInsertCompiler):
