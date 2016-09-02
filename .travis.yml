@@ -1,0 +1,19 @@
+# Config file for automatic testing at travis-ci.org
+
+language: python
+
+python:
+  - "3.5"
+  - "2.7"
+
+before_install:
+  - pip install codecov
+
+# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+install: pip install -r requirements_test.txt
+
+# command to run tests using coverage, e.g. python setup.py test
+script: coverage run --source django_readonly_field runtests.py
+
+after_success:
+  - codecov
