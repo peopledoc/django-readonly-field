@@ -73,6 +73,7 @@ Running Tests
 You will need an usable Postgresql database in ordre to test the project.
 
 ::
+
     source <YOURVIRTUALENV>/bin/activate
     export DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/NAME
     (myenv) $ pip install -r requirements_test.txt
