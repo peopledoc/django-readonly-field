@@ -17,17 +17,8 @@ setup()
 
 
 def run_tests(*test_args):
-    if not test_args:
-        test_args = ['tests']
-
-    # Run tests
-    TestRunner = get_runner(settings)
-    test_runner = TestRunner()
-
-    failures = test_runner.run_tests(test_args)
-
-    if failures:
-        sys.exit(bool(failures))
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(["", "test", ] + sys.argv[1:])
 
 
 if __name__ == '__main__':
