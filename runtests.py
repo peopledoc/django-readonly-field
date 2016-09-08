@@ -17,8 +17,20 @@ setup()
 
 
 def run_tests(*test_args):
+    do_coverage = "COVERAGE" in os.environ
+
+    if do_coverage:
+        import coverage
+        cov = coverage.Coverage(source=["django_readonly_field"])
+        cov.start()
+        print("Coverage will be generated")
+
     from django.core.management import execute_from_command_line
     execute_from_command_line(["", "test", ] + sys.argv[1:])
+
+    if do_coverage:
+        cov.stop()
+        cov.save()
 
 
 if __name__ == '__main__':

@@ -27,8 +27,6 @@ test-all: ## run tests on every Python version with tox
 
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source django_readonly_field runtests.py
-	coverage report -m
-	coverage html
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/django-readonly-field.rst
