@@ -9,6 +9,7 @@ env:
   - TOX_ENV=py35-django19
   - TOX_ENV=py27-django110
   - TOX_ENV=py35-django110
+  - TOX_ENV=linters
 install:
   - pip install tox
 script:
