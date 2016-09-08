@@ -25,6 +25,10 @@ matrix:
         - env: TOX_ENV=linters
 
 install:
-  - pip install tox
+  - pip install tox codecov
+
 script:
   - tox -e $TOX_ENV
+
+after_success:
+  - codecov
