@@ -17,7 +17,7 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '*~' -exec rm -f {} +
 
 lint: ## check style with flake8
-	flake8 django_readonly_field tests
+	flake8 --exclude="migrations,.tox,docs,build" .
 
 test: ## run tests quickly with the default Python
 	python runtests.py
@@ -27,8 +27,6 @@ test-all: ## run tests on every Python version with tox
 
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source django_readonly_field runtests.py
-	coverage report -m
-	coverage html
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/django-readonly-field.rst

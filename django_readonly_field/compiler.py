@@ -1,8 +1,12 @@
 from django.db.models.sql.compiler import SQLCompiler
-from django.db.models.sql.compiler import SQLInsertCompiler as BaseSQLInsertCompiler
+from django.db.models.sql.compiler import SQLInsertCompiler as BaseSQLInsertCompiler  # noqa
 from django.db.models.sql.compiler import SQLDeleteCompiler
-from django.db.models.sql.compiler import SQLUpdateCompiler as BaseSQLUpdateCompiler
+from django.db.models.sql.compiler import SQLUpdateCompiler as BaseSQLUpdateCompiler  # noqa
 from django.db.models.sql.compiler import SQLAggregateCompiler
+
+SQLCompiler = SQLCompiler
+SQLDeleteCompiler = SQLDeleteCompiler
+SQLAggregateCompiler = SQLAggregateCompiler
 
 
 class ReadOnlySQLCompilerMixin(object):

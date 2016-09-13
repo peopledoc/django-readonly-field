@@ -1,15 +1,34 @@
 # Config file for automatic testing at travis-ci.org
 language: python
-python:
-  - "3.5"
-env:
-  - TOX_ENV=py27-django18
-  - TOX_ENV=py35-django18
-  - TOX_ENV=py27-django19
-  - TOX_ENV=py35-django19
-  - TOX_ENV=py27-django110
-  - TOX_ENV=py35-django110
+
+matrix:
+    include:
+      # Python version is just for the look on travis.
+        - python: 2.7
+          env: TOX_ENV=py27-django18
+
+        - python: 2.7
+          env: TOX_ENV=py27-django19
+
+        - python: 2.7
+          env: TOX_ENV=py27-django110
+
+        - python: 3.5
+          env: TOX_ENV=py35-django18
+
+        - python: 3.5
+          env: TOX_ENV=py35-django19
+
+        - python: 3.5
+          env: TOX_ENV=py35-django110
+
+        - env: TOX_ENV=linters
+
 install:
-  - pip install tox
+  - pip install tox codecov
+
 script:
   - tox -e $TOX_ENV
+
+after_success:
+  - codecov
