@@ -1,8 +1,10 @@
 from contextlib import contextmanager
+import json
 
 from django.test import TestCase
 from django.db import connection
 from django.test.utils import CaptureQueriesContext
+from django.core import serializers
 
 # Create your tests here.
 from .models import Car
@@ -173,6 +175,33 @@ class ReadOnlyFieldTest(TestCase):
         # All cars have 3 wheels (what ?!)
         self.assertTrue(all(
             car.wheel_number == 3 for car in queryset))
+
+    def test_serialize(self):
+        serialized = json.loads(serializers.serialize(
+            "json",
+            Car.objects.filter(id=self.peugeot_car.id)))
+
+        self.assertEqual(len(serialized), 1)
+
+        dict_car, = serialized
+
+        self.assertIn("wheel_number", dict_car["fields"])
+        self.assertIn("manufacturer", dict_car["fields"])
+
+    def test_deserialize(self):
+        pk = Car.objects.latest("id").id + 1
+        with self.assertSQLQueries(Car):
+            deserialized = serializers.deserialize(
+                "json",
+                json.dumps([{"model": "readonly_app.car",
+                             "pk": pk,
+                             "fields": {"wheel_number": 12,
+                                        "manufacturer": "Volvo"}}]))
+
+            car, = deserialized
+            car.save()
+
+        self.assertTrue(Car.objects.filter(pk=pk).exists())
 
     def test_several_models(self):
 
