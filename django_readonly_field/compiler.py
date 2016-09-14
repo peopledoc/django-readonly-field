@@ -9,61 +9,61 @@ SQLDeleteCompiler = SQLDeleteCompiler
 SQLAggregateCompiler = SQLAggregateCompiler
 
 
-class ReadOnlySQLCompilerMixin(object):
+class ReadonlySQLCompilerMixin(object):
 
     @property
-    def read_only_field_names(self):
+    def readonly_field_names(self):
         try:
-            read_only_meta = getattr(self.query.model, "ReadOnlyMeta")
+            readonly_meta = getattr(self.query.model, "ReadonlyMeta")
         except AttributeError:
             return ()
         else:
-            fields = getattr(read_only_meta, "_cached_read_only", None)
+            fields = getattr(readonly_meta, "_cached_readonly", None)
             if not fields:
-                read_only_meta._cached_read_only = fields = frozenset(
-                    getattr(read_only_meta, "read_only", ()))
+                readonly_meta._cached_readonly = fields = frozenset(
+                    getattr(readonly_meta, "readonly", ()))
             return fields
 
     def as_sql(self):
-        read_only_field_names = self.read_only_field_names
-        if read_only_field_names:
-            self.remove_read_only_fields(read_only_field_names)
-        return super(ReadOnlySQLCompilerMixin, self).as_sql()
+        readonly_field_names = self.readonly_field_names
+        if readonly_field_names:
+            self.remove_readonly_fields(readonly_field_names)
+        return super(ReadonlySQLCompilerMixin, self).as_sql()
 
 
-class SQLUpdateCompiler(ReadOnlySQLCompilerMixin, BaseSQLUpdateCompiler):
+class SQLUpdateCompiler(ReadonlySQLCompilerMixin, BaseSQLUpdateCompiler):
 
-    def remove_read_only_fields(self, read_only_field_names):
+    def remove_readonly_fields(self, readonly_field_names):
         """
         Remove the values from the query which correspond to a
-        read_only field
+        readonly field
         """
         values = self.query.values
 
         # The tuple is (field, model, value) where model if used for FKs.
         values[:] = (
             (field, _, __) for (field, _, __) in values
-            if field.name not in read_only_field_names
+            if field.name not in readonly_field_names
         )
 
 
-class SQLInsertCompiler(ReadOnlySQLCompilerMixin, BaseSQLInsertCompiler):
+class SQLInsertCompiler(ReadonlySQLCompilerMixin, BaseSQLInsertCompiler):
 
-    def _exclude_readonly_fields(self, fields, read_only_field_names):
+    def _exclude_readonly_fields(self, fields, readonly_field_names):
         for field in fields:
-            if field.name not in read_only_field_names:
+            if field.name not in readonly_field_names:
                 yield field
 
-    def remove_read_only_fields(self, read_only_field_names):
+    def remove_readonly_fields(self, readonly_field_names):
         """
         Remove the fields from the query which correspond to a
-        read_only field
+        readonly field
         """
         fields = self.query.fields
 
         try:
             fields[:] = self._exclude_readonly_fields(
-                fields, read_only_field_names)
+                fields, readonly_field_names)
         except AttributeError:
             # When deserializing, we might get an attribute error because this
             # list shoud be copied first :
@@ -73,4 +73,4 @@ class SQLInsertCompiler(ReadOnlySQLCompilerMixin, BaseSQLInsertCompiler):
             # your own use, make a copy first."
 
             self.query.fields = list(self._exclude_readonly_fields(
-                fields, read_only_field_names))
+                fields, readonly_field_names))

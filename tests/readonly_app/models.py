@@ -14,8 +14,8 @@ class Car(models.Model):
         return "{car.manufacturer} Car with {car.wheel_number} wheels".format(
             car=self)
 
-    class ReadOnlyMeta:
-        read_only = ["manufacturer"]
+    class ReadonlyMeta:
+        readonly = ["manufacturer"]
 
 
 @python_2_unicode_compatible
@@ -30,8 +30,8 @@ class Book(models.Model):
     def __str__(self):
         return "{book.name} (ref: {book.ref}, iban: {book.iban})"
 
-    class ReadOnlyMeta:
-        read_only = ["ref", "iban"]
+    class ReadonlyMeta:
+        readonly = ["ref", "iban"]
 
 
 @python_2_unicode_compatible
@@ -48,5 +48,5 @@ class Bus(models.Model):
         return "{car.manufacturer} Bus with {car.wheel_number} wheels".format(
             car=self)
 
-    class ReadOnlyMeta:
-        read_only = ["wheel_number"]
+    class ReadonlyMeta:
+        readonly = ["wheel_number"]
