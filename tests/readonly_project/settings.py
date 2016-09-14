@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sites",
-    "django_readonly_field.apps.ReadOnly",
+    "django_readonly_field",
     "tests.readonly_app",
 ]
 SITE_ID = 1
