@@ -50,7 +50,7 @@ In the model where you want some fields to be read-only:
         name = models.CharField(max_length=100)
         color = models.CharField(max_length=16)
 
-        class ReadOnlyMeta:
+        class ReadonlyMeta:
             readonly = ["color"]
 
 That's it. Now, Django won't try to write the ``color`` field on the database.

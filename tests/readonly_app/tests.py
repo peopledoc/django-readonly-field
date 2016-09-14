@@ -12,7 +12,7 @@ from .models import Bus
 from .models import Book
 
 
-class ReadOnlyFieldTest(TestCase):
+class ReadonlyFieldTest(TestCase):
 
     # Note : the default for fields is in the file 0002_sql_default.py
     # Default values are :
@@ -35,12 +35,12 @@ class ReadOnlyFieldTest(TestCase):
     def assertSQLQueries(self, model=None, check_other_fields=True):
         """
         Asserts that the SQL from the queries don't mention
-        the read_only field. SELECTS are authorized, though.
+        the readonly field. SELECTS are authorized, though.
         model allow you to specify the model for which readonly
         fields will be checked
         """
         model = model or Car
-        readonly_fields = model.ReadOnlyMeta.read_only
+        readonly_fields = model.ReadonlyMeta.readonly
         with CaptureQueriesContext(connection=connection) as capture:
             yield capture
 
