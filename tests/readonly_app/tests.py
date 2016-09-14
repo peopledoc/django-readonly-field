@@ -32,7 +32,7 @@ class ReadOnlyFieldTest(TestCase):
         self.peugeot_car.refresh_from_db()
 
     @contextmanager
-    def assertSQLQueries(self, model=None):
+    def assertSQLQueries(self, model=None, check_other_fields=True):
         """
         Asserts that the SQL from the queries don't mention
         the read_only field. SELECTS are authorized, though.
@@ -44,10 +44,17 @@ class ReadOnlyFieldTest(TestCase):
         with CaptureQueriesContext(connection=connection) as capture:
             yield
 
+        unchecked_queries = frozenset("SELECT SAVEPOINT RELEASE".split())
+
         for query in capture.captured_queries:
-            if not query['sql'].startswith("SELECT"):
+            if not query['sql'].split()[0] in unchecked_queries:
                 for field in readonly_fields:
                     self.assertNotIn(field, query['sql'])
+                if check_other_fields:
+                    fields = {field.name for field in model._meta.fields}
+                    read_write_fields = fields - frozenset(readonly_fields)
+                    for field in read_write_fields:
+                        self.assertIn(field, query['sql'])
 
     def test_create(self):
         # Create, don't specify the readonly field
@@ -133,6 +140,15 @@ class ReadOnlyFieldTest(TestCase):
         car.refresh_from_db()
         self.assertEqual(car.manufacturer, "Peugeot")
         self.assertEqual(car.wheel_number, 12)
+
+        # Update both
+        with self.assertSQLQueries():
+            Car.objects.filter(pk=car.pk).update(
+                manufacturer="Ferrari", wheel_number=52)
+
+        car.refresh_from_db()
+        self.assertEqual(car.manufacturer, "Peugeot")
+        self.assertEqual(car.wheel_number, 52)
 
     def test_get_or_create(self):
         # get_or_create, don't specify the readonly field
