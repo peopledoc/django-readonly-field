@@ -49,6 +49,11 @@ class SQLUpdateCompiler(ReadOnlySQLCompilerMixin, BaseSQLUpdateCompiler):
 
 class SQLInsertCompiler(ReadOnlySQLCompilerMixin, BaseSQLInsertCompiler):
 
+    def _exclude_readonly_fields(self, fields, read_only_field_names):
+        for field in fields:
+            if field.name not in read_only_field_names:
+                yield field
+
     def remove_read_only_fields(self, read_only_field_names):
         """
         Remove the fields from the query which correspond to a
@@ -56,7 +61,16 @@ class SQLInsertCompiler(ReadOnlySQLCompilerMixin, BaseSQLInsertCompiler):
         """
         fields = self.query.fields
 
-        fields[:] = (
-            field for field in fields
-            if field.name not in read_only_field_names
-        )
+        try:
+            fields[:] = self._exclude_readonly_fields(
+                fields, read_only_field_names)
+        except AttributeError:
+            # When deserializing, we might get an attribute error because this
+            # list shoud be copied first :
+
+            # "AttributeError: The return type of 'local_concrete_fields'
+            # should never be mutated. If you want to manipulate this list for
+            # your own use, make a copy first."
+
+            self.query.fields = list(self._exclude_readonly_fields(
+                fields, read_only_field_names))

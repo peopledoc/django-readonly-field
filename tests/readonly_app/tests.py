@@ -1,8 +1,10 @@
 from contextlib import contextmanager
+import json
 
 from django.test import TestCase
 from django.db import connection
 from django.test.utils import CaptureQueriesContext
+from django.core import serializers
 
 # Create your tests here.
 from .models import Car
@@ -30,7 +32,7 @@ class ReadOnlyFieldTest(TestCase):
         self.peugeot_car.refresh_from_db()
 
     @contextmanager
-    def assertSQLQueries(self, model=None):
+    def assertSQLQueries(self, model=None, check_other_fields=True):
         """
         Asserts that the SQL from the queries don't mention
         the read_only field. SELECTS are authorized, though.
@@ -40,12 +42,42 @@ class ReadOnlyFieldTest(TestCase):
         model = model or Car
         readonly_fields = model.ReadOnlyMeta.read_only
         with CaptureQueriesContext(connection=connection) as capture:
-            yield
+            yield capture
 
+        unchecked_queries = frozenset("SELECT SAVEPOINT RELEASE".split())
+
+        for query in self._filter_queries(capture, exclude=unchecked_queries):
+
+            for field in readonly_fields:
+                self.assertNotIn(field, query['sql'])
+
+            if check_other_fields:
+                fields = {field.name for field in model._meta.fields}
+                read_write_fields = fields - frozenset(readonly_fields)
+                for field in read_write_fields:
+                    self.assertIn(field, query['sql'])
+
+    def _filter_queries(self, capture, include=None, exclude=None):
         for query in capture.captured_queries:
-            if not query['sql'].startswith("SELECT"):
-                for field in readonly_fields:
-                    self.assertNotIn(field, query['sql'])
+            command = query['sql'].split()[0]
+            if include:
+                if command in include:
+                    yield query
+            if exclude:
+                if command not in exclude:
+                    yield query
+
+    def assertNumCommands(self, capture, command, count):
+        queries = list(self._filter_queries(capture, include={command}))
+        num_queries = len(queries)
+        self.assertEqual(
+            num_queries,
+            count,
+            "{num_queries} {command} query(ies) found. "
+            "Expected {count}. \n Queries: {queries}".format(
+                num_queries=num_queries, command=command,
+                count=count, queries="\n".join(
+                    q['sql'] for q in queries)))
 
     def test_create(self):
         # Create, don't specify the readonly field
@@ -132,6 +164,15 @@ class ReadOnlyFieldTest(TestCase):
         self.assertEqual(car.manufacturer, "Peugeot")
         self.assertEqual(car.wheel_number, 12)
 
+        # Update both
+        with self.assertSQLQueries():
+            Car.objects.filter(pk=car.pk).update(
+                manufacturer="Ferrari", wheel_number=52)
+
+        car.refresh_from_db()
+        self.assertEqual(car.manufacturer, "Peugeot")
+        self.assertEqual(car.wheel_number, 52)
+
     def test_get_or_create(self):
         # get_or_create, don't specify the readonly field
         with self.assertSQLQueries():
@@ -173,6 +214,56 @@ class ReadOnlyFieldTest(TestCase):
         # All cars have 3 wheels (what ?!)
         self.assertTrue(all(
             car.wheel_number == 3 for car in queryset))
+
+    def test_serialize(self):
+        serialized = json.loads(serializers.serialize(
+            "json",
+            Car.objects.filter(id=self.peugeot_car.id)))
+
+        self.assertEqual(len(serialized), 1)
+
+        dict_car, = serialized
+
+        self.assertIn("wheel_number", dict_car["fields"])
+        self.assertIn("manufacturer", dict_car["fields"])
+
+    def test_deserialize(self):
+        pk = Car.objects.latest("id").id + 1
+        json_car = json.dumps([{"model": "readonly_app.car",
+                                "pk": pk,
+                                "fields": {"wheel_number": 12,
+                                           "manufacturer": "Volvo"}}])
+
+        # Check that the save works
+        with self.assertSQLQueries(Car) as capture:
+            deserialized = serializers.deserialize("json", json_car)
+
+            car, = deserialized
+            car.save()
+
+        # Because a pk is specified, Django will try to do an UPDATE and then
+        # an INSERT when the UPDATE returns with 0 rows affected
+        self.assertNumCommands(capture, command="UPDATE", count=1)
+        self.assertNumCommands(capture, command="INSERT", count=1)
+
+        car = Car.objects.get(pk=pk)
+        self.assertEqual(car.wheel_number, 12)
+        self.assertEqual(car.manufacturer, "Renault")
+
+        json_car = json_car.replace("12", "14")
+        # Check that the UPDATE works
+        with self.assertSQLQueries(Car) as capture:
+            deserialized = serializers.deserialize("json", json_car)
+
+            car, = deserialized
+            car.save()
+
+        self.assertNumCommands(capture, command="UPDATE", count=1)
+        self.assertNumCommands(capture, command="INSERT", count=0)
+
+        car = Car.objects.get(pk=pk)
+        self.assertEqual(car.wheel_number, 14)
+        self.assertEqual(car.manufacturer, "Renault")
 
     def test_several_models(self):
 
