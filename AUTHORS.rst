@@ -5,9 +5,11 @@ Credits
 Development Lead
 ----------------
 
-* Joachim Jablon <joachim.jablon /at/ people-doc.com>
+* `Joachim Jablon / @ewjoachim <https://github.com/ewjoachim>`_ <joachim.jablon /at/ people-doc.com>
 
-Contributors
-------------
+Contributors (by alphabetic order)
+----------------------------------
 
-None yet. Why not be the first?
+- `@brunobord <https://github.com/brunobord>`_
+- `@k4nar <https://github.com/k4nar>`_
+- `@zebuline <https://github.com/zebuline>`_
