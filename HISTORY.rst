@@ -3,6 +3,11 @@
 History
 -------
 
+1.0.1 (?)
+++++++++++++++++++
+
+* Added support for Python 3.4 and current Django stable
+
 1.0.0 (2016-09-15)
 ++++++++++++++++++
 
