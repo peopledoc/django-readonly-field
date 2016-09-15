@@ -43,7 +43,7 @@ setup(
     ],
     include_package_data=True,
     install_requires=["Django>=1.8,<1.11"],
-    test_requires=["tox"],
+    tests_require=["tox"],
     license="MIT",
     zip_safe=False,
     keywords='django-readonly-field',
