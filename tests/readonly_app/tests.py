@@ -52,7 +52,9 @@ class ReadonlyFieldTest(TestCase):
                 self.assertNotIn(field, query['sql'])
 
             if check_other_fields:
-                fields = {field.name for field in model._meta.fields}
+                fields = {field.name
+                          for field in model._meta.fields
+                          if not field.primary_key}
                 read_write_fields = fields - frozenset(readonly_fields)
                 for field in read_write_fields:
                     self.assertIn(field, query['sql'])
