@@ -12,8 +12,8 @@ Django Readonly Field
     :target: https://codecov.io/github/novafloss/django-readonly-field?branch=master
 
 Make Django model fields readonly. In other words, make it so that Django will
-read from your field in your Database, but never try to write it. It can be
-useful if your field is populated by a trigger or something.
+read from your fields in your database, but never try to write them. It can be
+useful if your fields are populated by triggers or something.
 
 Requirements
 ------------
@@ -63,9 +63,9 @@ Warning
 Django won't try to write those fields. Consequence is that your Database
 **must** be ok with Django not writing those fields. They should either
 be nullable or have a database default or be filled by a trigger, otherwise
-you will get in ``IntegrityError``.
+you will get an ``IntegrityError``.
 
-Don't forget that Django model field defaults don't become Database default.
+Don't forget that Django model field defaults won't become database defaults.
 You might have to write an SQL migration for this.
 
 
