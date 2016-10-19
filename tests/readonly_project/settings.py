@@ -26,7 +26,9 @@ INSTALLED_APPS = [
     "django_readonly_field",
     "tests.readonly_app",
 ]
+STATIC_URL = "/static/"
 SITE_ID = 1
 MIDDLEWARE_CLASSES = ()
 LOGGING = {}
 SECRET_KEY = "yay"
+ROOT_URLCONF = "tests.readonly_app.views"

@@ -1,7 +1,10 @@
 from contextlib import contextmanager
 import json
 
+import requests
+
 from django.test import TestCase
+from django.test import LiveServerTestCase
 from django.db import connection
 from django.test.utils import CaptureQueriesContext
 from django.core import serializers
@@ -317,3 +320,8 @@ class ReadonlyFieldTest(TestCase):
         self.assertEqual(book.name, "Harry Potter")
         self.assertEqual(book.ref, 123456789)
         self.assertEqual(book.iban, "1234-abcd")
+
+
+class ReadonlyFieldRunserverTest(LiveServerTestCase):
+    def test_run_server(self):
+        self.assertEqual(requests.get(self.live_server_url).content, "OK")
