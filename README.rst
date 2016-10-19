@@ -34,14 +34,18 @@ Install Django Readonly Field::
 
     pip install django-readonly-field
 
-In your ``settings.py`` :
+In your ``settings.py``, use "django_readonly_field" as your database engine and set
+``REAL_ENGINE`` for the engine that you will be using:
 
 .. code-block:: python
 
-    INSTALLED_APPS = [
-        # ...
-        "django_readonly_field",
-    ]
+    DATABASES["default"]["REAL_ENGINE"] = DATABASES["default"]["ENGINE"]
+    DATABASES["default"]["ENGINE"] = "django_readonly_field"
+
+Note: the django_readonly_field engine will not make your entire database readonly or what, but
+we need an entrypoint to activate the field filtering, and as the database wrapper is rebuilded
+frequently, we need to be there at that level to ensure that all connections will be modified.
+We haven't (yet) found a better way to do this.
 
 In the model where you want some fields to be read-only:
 

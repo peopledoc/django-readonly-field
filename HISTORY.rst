@@ -3,10 +3,11 @@
 History
 -------
 
-1.0.1 (?)
+1.1.0 (2016-10-19)
 ++++++++++++++++++
 
 * Added support for Python 3.4 and current Django stable
+* Fix a bug that would make the package usable only for test and not for real :/
 
 1.0.0 (2016-09-15)
 ++++++++++++++++++
