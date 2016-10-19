@@ -19,11 +19,14 @@ if "DATABASE_URL" not in os.environ or \
 DEBUG = True
 USE_TZ = True
 DATABASES = {"default": dj_database_url.config()}
+
+DATABASES["default"]["REAL_ENGINE"] = DATABASES["default"]["ENGINE"]
+DATABASES["default"]["ENGINE"] = "django_readonly_field"
+
 INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sites",
-    "django_readonly_field",
     "tests.readonly_app",
 ]
 STATIC_URL = "/static/"
