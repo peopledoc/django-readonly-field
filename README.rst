@@ -3,7 +3,7 @@ Django Readonly Field
 =============================
 
 .. image:: https://badge.fury.io/py/django-readonly-field.png
-    :target: https://badge.fury.io/py/django-readonly-field
+    :target: https://pypi.org/pypi/django-readonly-field
 
 .. image:: https://travis-ci.org/novafloss/django-readonly-field.png?branch=master
     :target: https://travis-ci.org/novafloss/django-readonly-field
