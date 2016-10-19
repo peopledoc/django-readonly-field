@@ -8,4 +8,27 @@ class Readonly(AppConfig):
 
     def ready(self):
         from django.db import connection
-        connection.ops.compiler_module = "django_readonly_field.compiler"
+        from django.db import utils
+
+        readonly_compiler_module = "django_readonly_field.compiler"
+
+        # Change the current value (this is mostly important for the tests)
+        connection.ops.compiler_module = readonly_compiler_module
+
+        original_load_backend = utils.load_backend
+
+        def custom_load_backend(*args, **kwargs):
+            backend = original_load_backend(*args, **kwargs)
+
+            class ReadOnlyBackend(object):
+                @staticmethod
+                def DatabaseWrapper(*args2, **kwargs2):
+                    connection = backend.DatabaseWrapper(*args2, **kwargs2)
+                    connection.ops.compiler_module = readonly_compiler_module
+                    return connection
+
+            return ReadOnlyBackend
+
+        # Make sure all future values will be changed too
+        # (this is mostly important for the real life)
+        utils.load_backend = custom_load_backend
