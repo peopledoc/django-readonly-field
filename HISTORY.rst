@@ -3,10 +3,10 @@
 History
 -------
 
-Unreleased
+1.0.2 (unreleased)
 ++++++++++++++++++
 
-* Added tests for Dhango 1.11
+* Added tests for Django 1.11
 
 1.0.1 (2016-10-19)
 ++++++++++++++++++
