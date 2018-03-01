@@ -1,6 +1,12 @@
 # Config file for automatic testing at travis-ci.org
 language: python
 
+services:
+  - postgresql
+
+env:
+  global : DATABASE_URL=postgres://postgres:@127.0.0.1:5432
+
 matrix:
     include:
       # Python version is just for the look on travis.
@@ -48,6 +54,12 @@ matrix:
 
         - python: 3.5
           env: TOX_ENV=py35-djangostable
+
+        - python: 3.6
+          env: TOX_ENV=py36-django111
+
+        - python: 3.6
+          env: TOX_ENV=py36-djangostable
 
         - env: TOX_ENV=linters
 
