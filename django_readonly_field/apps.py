@@ -17,6 +17,7 @@ class Readonly(AppConfig):
             connections[c].ops.compiler_module = readonly_compiler_module
 
         original_load_backend = utils.load_backend
+
         def custom_load_backend(*args, **kwargs):
             backend = original_load_backend(*args, **kwargs)
 
