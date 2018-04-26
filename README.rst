@@ -5,11 +5,11 @@ Django Readonly Field
 .. image:: https://badge.fury.io/py/django-readonly-field.png
     :target: https://pypi.org/pypi/django-readonly-field
 
-.. image:: https://travis-ci.org/novafloss/django-readonly-field.png?branch=master
-    :target: https://travis-ci.org/novafloss/django-readonly-field
+.. image:: https://travis-ci.org/peopledoc/django-readonly-field.png?branch=master
+    :target: https://travis-ci.org/peopledoc/django-readonly-field
 
-.. image:: https://img.shields.io/codecov/c/github/novafloss/django-readonly-field/master.svg
-    :target: https://codecov.io/github/novafloss/django-readonly-field?branch=master
+.. image:: https://img.shields.io/codecov/c/github/peopledoc/django-readonly-field/master.svg
+    :target: https://codecov.io/github/peopledoc/django-readonly-field?branch=master
 
 Make Django model fields readonly. In other words, make it so that Django will
 read from your fields in your database, but never try to write them. It can be

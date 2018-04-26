@@ -37,7 +37,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author='Joachim Jablon',
     author_email='joachim.jablon@people-doc.com',
-    url='https://github.com/novafloss/django-readonly-field',
+    url='https://github.com/peopledoc/django-readonly-field',
     packages=[
         'django_readonly_field',
     ],
