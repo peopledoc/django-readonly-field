@@ -6,7 +6,9 @@ History
 1.0.3 (unreleased)
 ++++++++++++++++++
 
-- Nothing changed yet.
+- Python 3.6 support
+- Multiple databases support
+- Github organization changed to "peopledoc"
 
 
 1.0.2 (2017-09-22)
