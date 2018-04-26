@@ -3,7 +3,7 @@
 History
 -------
 
-1.0.3 (unreleased)
+1.0.3 (2018-04-26)
 ++++++++++++++++++
 
 - Python 3.6 support
