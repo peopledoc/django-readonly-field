@@ -1,4 +1,6 @@
 # Config file for automatic testing at travis-ci.org
+dist: xenial
+
 language: python
 
 services:
@@ -11,55 +13,43 @@ matrix:
     include:
       # Python version is just for the look on travis.
         - python: 2.7
-          env: TOX_ENV=py27-django18
-
-        - python: 2.7
-          env: TOX_ENV=py27-django19
-
-        - python: 2.7
-          env: TOX_ENV=py27-django110
-
-        - python: 2.7
           env: TOX_ENV=py27-django111
-
-        - python: 2.7
-          env: TOX_ENV=py27-djangostable
-
-        - python: 3.4
-          env: TOX_ENV=py34-django18
-
-        - python: 3.4
-          env: TOX_ENV=py34-django19
-
-        - python: 3.4
-          env: TOX_ENV=py34-django110
-
-        - python: 3.4
-          env: TOX_ENV=py34-django111
-
-        - python: 3.4
-          env: TOX_ENV=py34-djangostable
-
-        - python: 3.5
-          env: TOX_ENV=py35-django18
-
-        - python: 3.5
-          env: TOX_ENV=py35-django19
-
-        - python: 3.5
-          env: TOX_ENV=py35-django110
 
         - python: 3.5
           env: TOX_ENV=py35-django111
+
+        - python: 3.6
+          env: TOX_ENV=py36-django111
+
+        - python: 3.7
+          env: TOX_ENV=py37-django111
+
+        - python: 3.5
+          env: TOX_ENV=py35-django20
+
+        - python: 3.6
+          env: TOX_ENV=py36-django20
+
+        - python: 3.7
+          env: TOX_ENV=py37-django20
+
+        - python: 3.5
+          env: TOX_ENV=py35-django21
+
+        - python: 3.6
+          env: TOX_ENV=py36-django21
+
+        - python: 3.7
+          env: TOX_ENV=py37-django21
 
         - python: 3.5
           env: TOX_ENV=py35-djangostable
 
         - python: 3.6
-          env: TOX_ENV=py36-django111
-
-        - python: 3.6
           env: TOX_ENV=py36-djangostable
+
+        - python: 3.7
+          env: TOX_ENV=py37-djangostable
 
         - env: TOX_ENV=linters
 
