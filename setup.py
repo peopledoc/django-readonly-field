@@ -42,7 +42,7 @@ setup(
         'django_readonly_field',
     ],
     include_package_data=True,
-    install_requires=["Django>=1.8"],
+    install_requires=["Django>=1.11"],
     tests_require=["tox"],
     license="MIT",
     zip_safe=False,
@@ -50,7 +50,6 @@ setup(
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',

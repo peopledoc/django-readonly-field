@@ -8,6 +8,7 @@ History
 
 - Drop support of Python 3.4
 - Confirm support of Python 3.7
+- Drop support of Django 1.8
 - Drop support of Django 1.9
 - Drop support of Django 1.10
 - Confirm support of Django 2.0

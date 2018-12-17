@@ -19,8 +19,8 @@ Requirements
 ------------
 
 + **Postgresql only**
-+ Django, obviously. v1.8+ (until proven otherwise)
-+ Running under Python 2.7 or 3.4+
++ Django, obviously. v1.11+ (until proven otherwise)
++ Running under Python 2.7 or 3.5+
 
 Documentation
 -------------
