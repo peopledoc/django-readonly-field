@@ -3,7 +3,7 @@
 History
 -------
 
-1.0.4 (unreleased)
+1.0.4 (2018-12-17)
 ++++++++++++++++++
 
 - Drop support of Python 3.4
