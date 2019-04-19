@@ -6,7 +6,7 @@ History
 1.0.5 (unreleased)
 ++++++++++++++++++
 
-- Nothing yet
+- Run tests for Django 2.2 and Python 3.5, 3.6 and 3.7
 
 1.0.4 (2018-12-17)
 ++++++++++++++++++
