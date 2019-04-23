@@ -3,7 +3,7 @@
 History
 -------
 
-1.0.5 (unreleased)
+1.0.5 (2019-04-23)
 ++++++++++++++++++
 
 - Run tests for Django 2.2 and Python 3.5, 3.6 and 3.7
