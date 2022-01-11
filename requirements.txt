@@ -1,2 +1,4 @@
 django>=1.11
+# https://stackoverflow.com/questions/68024060/assertionerror-database-connection-isnt-set-to-utc
+psycopg2==2.8.6
 -e .
