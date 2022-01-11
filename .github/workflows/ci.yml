@@ -88,9 +88,7 @@ jobs:
       - name: Run ${{ matrix.name }}
         run: tox -e ${{ matrix.tox_env }}
         env:
-          PGHOST: localhost
-          PGUSER: postgres
-          PGPASSWORD: postgres
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
 
   report-status:
     name: success
