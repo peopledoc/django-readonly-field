@@ -1,5 +1,5 @@
 from django import http
-from django.conf.urls import url
+from django.urls import path
 
 from .models import Car
 
@@ -14,4 +14,4 @@ def test_view(request):
         content="OK" if valid else "Fail")
 
 
-urlpatterns = [url("^", test_view)]
+urlpatterns = [path("^", test_view)]
