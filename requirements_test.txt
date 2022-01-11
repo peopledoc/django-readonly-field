@@ -1,4 +1,4 @@
-coverage==4.1
+coverage
 mock>=1.0.1
 psycopg2>=2.6.2
 dj_database_url>=0.4.1
