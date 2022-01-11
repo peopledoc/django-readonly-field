@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
+#from django.utils.encoding import python_2_unicode_compatible
 
 
-@python_2_unicode_compatible
+#@python_2_unicode_compatible
 class Car(models.Model):
 
     wheel_number = models.IntegerField()
@@ -18,7 +18,7 @@ class Car(models.Model):
         readonly = ["manufacturer"]
 
 
-@python_2_unicode_compatible
+#@python_2_unicode_compatible
 class Book(models.Model):
     """
     A completely different model
@@ -34,7 +34,7 @@ class Book(models.Model):
         readonly = ["ref", "iban"]
 
 
-@python_2_unicode_compatible
+#@python_2_unicode_compatible
 class Bus(models.Model):
     """
     This is the same model as Car but with readonly fields the other way
