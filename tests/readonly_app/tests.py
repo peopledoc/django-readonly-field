@@ -325,6 +325,7 @@ class ReadonlyFieldTest(TestCase):
 
 class ReadonlyFieldRunserverTest(LiveServerTestCase):
     def test_run_server(self):
+        print(requests.get(self.live_server_url).content)
         self.assertEqual(
             requests.get(self.live_server_url).content,
             six.b("OK"))
