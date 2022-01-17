@@ -11,9 +11,9 @@ from django.test.utils import CaptureQueriesContext
 from django.core import serializers
 
 # Create your tests here.
-from .models import Car
-from .models import Bus
-from .models import Book
+from tests.readonly_app.models import Car
+from tests.readonly_app.models import Bus
+from tests.readonly_app.models import Book
 
 
 class ReadonlyFieldTest(TestCase):
