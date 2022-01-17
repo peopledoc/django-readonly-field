@@ -14,4 +14,4 @@ def test_view(request):
         content="OK" if valid else "Fail")
 
 
-urlpatterns = [path("^", test_view)]
+urlpatterns = [path("", test_view)]
