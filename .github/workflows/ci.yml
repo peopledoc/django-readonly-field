@@ -54,6 +54,10 @@ jobs:
             python_version: "3"
             tox_env: lint
 
+          - name: Doc
+            python_version: "3"
+            tox_env: doc
+
     name: "${{ matrix.name }}"
     runs-on: ubuntu-latest
 
