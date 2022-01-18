@@ -31,12 +31,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           checkName: success
 
+      - name: Build package
+        run: python -m build
+
       - name: Exit if CI did not succeed
         if: steps.wait-for-ci.outputs.conclusion != 'success'
         run: exit 1
-
-      - name: Build package
-        run: python -m build
 
       - name: Publish a Python distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
