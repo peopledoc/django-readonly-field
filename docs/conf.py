@@ -193,7 +193,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'django-readonly-field.tex', u'Django Readonly Field Documentation',
-   u'Joachim Jablon', 'manual'),
+   'UKG', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
