@@ -223,7 +223,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'django-readonly-field', u'Django Readonly Field Documentation',
-     [u'Joachim Jablon'], 1)
+     [u'UKG'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -237,7 +237,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'django-readonly-field', u'Django Readonly Field Documentation',
-   u'Joachim Jablon', 'django-readonly-field', 'One line description of project.',
+   u'UKG', 'django-readonly-field', 'One line description of project.',
    'Miscellaneous'),
 ]
 
