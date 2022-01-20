@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Django Readonly Field'
-copyright = u'2016, Joachim Jablon'
+copyright = u'2016, UKG'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
