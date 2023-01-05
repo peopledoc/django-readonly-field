@@ -18,29 +18,17 @@ jobs:
       matrix:
         include:
 
-          - name: Python 3.7 / Django 3.2
+          - name: Python 3.7 / Django 2.2
             python_version: "3.7"
-            tox_env: py37-django32
+            tox_env: py37-django22
 
-          - name: Python 3.8 / Django 3.2
+          - name: Python 3.8 / Django 3.0
             python_version: "3.8"
-            tox_env: py38-django32
+            tox_env: py38-django30
 
-          - name: Python 3.9 / Django 3.2
+          - name: Python 3.9 / Django 3.1
             python_version: "3.9"
-            tox_env: py39-django32
-
-          - name: Python 3.10 / Django 2.2
-            python_version: "3.10"
-            tox_env: py310-django22
-
-          - name: Python 3.10 / Django 3.0
-            python_version: "3.10"
-            tox_env: py310-django30
-
-          - name: Python 3.10 / Django 3.1
-            python_version: "3.10"
-            tox_env: py310-django31
+            tox_env: py39-django31
 
           - name: Python 3.10 / Django 3.2
             python_version: "3.10"
@@ -50,13 +38,9 @@ jobs:
             python_version: "3.10"
             tox_env: py310-django40
 
-          - name: Python 3.10 / Django 4.1
-            python_version: "3.10"
-            tox_env: py310-django41
-
-          - name: Python 3.11 / Django 3.2
+          - name: Python 3.11 / Django 4.1
             python_version: "3.11"
-            tox_env: py311-django32
+            tox_env: py311-django41
 
           - name: Lint
             python_version: "3"
