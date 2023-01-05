@@ -6,6 +6,7 @@ History
 1.0.6 (unreleased)
 ++++++++++++++++++
 
+- Run tests for Django 4.1 and Python 3.11
 
 1.0.5 (2019-04-23)
 ++++++++++++++++++

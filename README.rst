@@ -11,8 +11,8 @@ Django Readonly Field
 .. image:: https://img.shields.io/codecov/c/github/peopledoc/django-readonly-field/master.svg
     :target: https://codecov.io/github/peopledoc/django-readonly-field?branch=master
 
-Make Django model fields readonly. In other words, make it so that Django will
-read from your fields in your database, but never try to write them. It can be
+Make some Django model fields readonly. In other words, it lets you tell Django to
+read some fields from your database, but never try to write those back. It can be
 useful if your fields are populated by triggers or something.
 
 Requirements
@@ -72,19 +72,19 @@ You might have to write an SQL migration for this.
 Running Tests
 --------------
 
-You will need an usable Postgresql database in ordre to test the project.
+You will need a usable Postgresql database in order to test the project.
 
 ::
 
     source <YOURVIRTUALENV>/bin/activate
     export DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/NAME
-    (myenv) $ pip install -r requirements_test.txt
+    (myenv) $ pip install -r requirements.txt
 
 Run tests for a specific version
 
 ::
 
-    (myenv) $ python runtests.py
+    (myenv) $ pytest
 
 
 Run tests for all versions (if tox is installed globally, you don't need a
@@ -93,15 +93,6 @@ virtual environment)
 ::
 
     $ tox
-
-Using the project
------------------
-
-Many operations are documented in the Makefile. For more information, use:
-
-::
-
-    $ make help
 
 
 Credits
